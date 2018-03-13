@@ -2,7 +2,9 @@
  Awesome-Gatherer
 ======================
 
-A Python script that run through the directory structure and collecting json data to make an awesome list.
+A Python script to make an awesome list.
+
+It makes you easy to manage the list; just concentrate on your data.
 
 Check out `this repository`_ for the live example.
 
@@ -58,7 +60,7 @@ Usage
 
   $ ./gather
 
-Since the ``gather`` is a plain Pythen script, modify it for your own purpose.
+Since the ``gather`` is a plain Python script, modify it for your own purpose.
 
 Lisence
 =======
