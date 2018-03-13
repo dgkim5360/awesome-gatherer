@@ -89,7 +89,7 @@ It produces ``README`` all over the directories, containing the contents of its 
       ├── data.json
       └── README
 
-Lisence
+License
 =======
 
 Please see ``COPYING``.
