@@ -9,7 +9,7 @@ def path2title(p: str)->str:
 
 
 class Category:
-    vcs = ('.git',)
+    ignore = ('.git', 'awesome-gatherer')
     json_file_name = 'data.json'
     children = None
     data = None
@@ -27,7 +27,7 @@ class Category:
                      self.json,
                      self.depth+1)
             for p in os.scandir(path)
-            if p.is_dir() and all(v not in p.path for v in self.vcs)
+            if p.is_dir() and all(v not in p.path for v in self.ignore)
         ]
         self.children.sort(key=lambda d: d.title)
 
