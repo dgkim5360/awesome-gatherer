@@ -65,10 +65,10 @@ class Category:
         ]
         return heading + '\n'.join(writing)
 
-    def summary(self):
+    def gather(self):
         written = ''
         for child in self.children:
-            written += '\n\n' + child.summary()
+            written += '\n\n' + child.gather()
         written = self.write() + '\n\n' + written
 
         sys.stdout.write('Gathering {} ... '.format(os.path.abspath(self.path)))
@@ -82,4 +82,4 @@ class Category:
 
 if __name__ == '__main__':
     root = Category('Today I Found')
-    root.summary()
+    root.gather()
