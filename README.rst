@@ -29,7 +29,7 @@ Directory Structure
   └── folder3
       └── data.json
 
-``root`` and its all subdirectory should contain ``data.json`` file for generating ``README.rst``.
+``root`` and its all subdirectory should contain ``data.json`` file for generating ``README``.
 
 Json Structure
 ==============
