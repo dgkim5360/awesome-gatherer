@@ -1,6 +1,6 @@
-======================
- Awesome-Gatherer
-======================
+============================
+ Make Your Own Awesome List
+============================
 
 A Python script to make an awesome list.
 
@@ -61,6 +61,33 @@ Usage
   $ ./gather
 
 Since the ``gather`` is a plain Python script, modify it for your own purpose.
+
+Output
+======
+
+It produces ``README`` all over the directories, containing the contents of its subdirectories.
+
+::
+
+  root/
+  ├── gather (executable python script)
+  ├── data.json
+  ├── README
+  ├── folder1
+  │   ├── data.json
+  │   └── README
+  ├── folder2
+  │   ├── data.json
+  │   ├── README
+  │   ├── folder2-1
+  │   │   ├── data.json
+  │   │   └── README
+  │   └── folder2-2
+  │       ├── data.json
+  │       └── README
+  └── folder3
+      ├── data.json
+      └── README
 
 Lisence
 =======
