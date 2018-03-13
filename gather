@@ -1,0 +1,85 @@
+#!/usr/bin/python3
+import sys
+import os
+import json
+
+
+def path2title(p: str)->str:
+    return p.replace('-', ' ').title()
+
+
+class Category:
+    vcs = ('.git',)
+    json_file_name = 'data.json'
+    children = None
+    data = None
+    out_file_name = 'README'
+    headings = '==--'
+
+    def __init__(self, title, path='.', json_file=json_file_name, depth=0):
+        self.title = title
+        self.path = path
+        self.json = json_file
+        self.depth = depth
+        self.children = [
+            Category(path2title(p.name),
+                     p.path,
+                     self.json,
+                     self.depth+1)
+            for p in os.scandir(path)
+            if p.is_dir() and all(v not in p.path for v in self.vcs)
+        ]
+        self.children.sort(key=lambda d: d.title)
+
+    def read(self):
+        json_path = os.path.join(self.path, self.json)
+        with open(json_path, 'r') as jsonf:
+            self.data = json.load(jsonf)
+        return self.data
+
+    def write(self):
+        if self.data is None:
+            self.read()
+
+        # An ugly conditional statement for headings
+        if self.depth == 0:
+            heading = '{line}\n{title}\n{line}\n'.format(
+                line='='*max(len(self.title), 3),
+                title=self.title,
+            )
+        else:
+            heading = '{indent}{title}\n{indent}{line}\n\n'.format(
+                indent='  '*self.depth,
+                title=self.title,
+                line=self.headings[self.depth]*max(len(self.title), 3),
+            )
+
+        writing = [
+            '{i}{g}: {t}\n{i}{l}\n'.format(
+                g=j['group'],
+                t=j['title'],
+                l=j['link'],
+                i='  '*self.depth,
+            )
+            for j in self.data
+        ]
+        return heading + '\n'.join(writing)
+
+    def summary(self):
+        written = ''
+        for child in self.children:
+            written += '\n\n' + child.summary()
+        written = self.write() + '\n\n' + written
+
+        sys.stdout.write('Gathering {} ... '.format(os.path.abspath(self.path)))
+        with open(os.path.join(self.path, self.out_file_name), 'w') as rstf:
+            rstf.write(written)
+        sys.stdout.write('Done.\n')
+        sys.stdout.flush()
+
+        return written
+
+
+if __name__ == '__main__':
+    root = Category('Today I Found')
+    root.summary()
