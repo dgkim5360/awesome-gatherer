@@ -9,7 +9,7 @@ def path2title(p: str)->str:
 
 
 class Category:
-    ignore = ('.git', 'awesome-gatherer')
+    ignore = ('.git', 'make-your-own-awesome-list')
     json_file_name = 'data.json'
     children = None
     data = None
